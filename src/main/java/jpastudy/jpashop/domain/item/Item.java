@@ -27,7 +27,7 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
-    //==비즈니스 로직== 주문취소되면 재고수량 증가//
+    //==비즈니스 로직== 주문이 취소되면 재고수량 증가//
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
