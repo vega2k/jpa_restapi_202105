@@ -1,6 +1,7 @@
 package jpastudy.jpashop;
 
 import jpastudy.jpashop.domain.*;
+import jpastudy.jpashop.domain.item.Book;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,17 @@ public class EntityTest {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrderPrice(1000);
         orderItem.setCount(10);
+        
+        //Book 생성
+        Book book = new Book();
+        book.setStockQuantity(100);
+        book.setPrice(1000);
+        book.setName("자바");
+        book.setAuthor("김저자");
+        book.setIsbn("1234-5678");
+        em.persist(book);
 
+        orderItem.setItem(book);
         order.addOrderItem(orderItem);
 
         order.setOrderDate(LocalDateTime.now());

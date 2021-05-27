@@ -1,5 +1,6 @@
 package jpastudy.jpashop.domain;
 
+import jpastudy.jpashop.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,10 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
     private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private int orderPrice; //주문 가격
 
