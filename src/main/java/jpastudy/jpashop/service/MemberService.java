@@ -2,7 +2,7 @@ package jpastudy.jpashop.service;
 
 import jpastudy.jpashop.domain.Member;
 import jpastudy.jpashop.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +10,14 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MemberService {
-    @Autowired
-    MemberRepository memberRepository;
+    //@Autowired
+    private final MemberRepository memberRepository;
+
+//    public MemberService(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
 
     // 회원 중복 검증
     private void validateDuplicateMember(Member member) {
@@ -35,6 +40,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    //회원 ID로 조회
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
