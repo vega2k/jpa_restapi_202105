@@ -38,8 +38,14 @@ public class EntityTest {
         delivery.setAddress(member.getAddress());
         delivery.setStatus(DeliveryStatus.READY);
         //em.persist(delivery);
-
         order.setDelivery(delivery);
+
+        //OrderItem 생성
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrderPrice(1000);
+        orderItem.setCount(10);
+
+        order.addOrderItem(orderItem);
 
         order.setOrderDate(LocalDateTime.now());
         order.setStatus(OrderStatus.ORDER);
