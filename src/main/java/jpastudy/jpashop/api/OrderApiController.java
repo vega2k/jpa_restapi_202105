@@ -2,6 +2,7 @@ package jpastudy.jpashop.api;
 
 import jpastudy.jpashop.domain.*;
 import jpastudy.jpashop.repository.OrderRepository;
+import jpastudy.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,8 @@ import static java.util.stream.Collectors.toList;
 @RequiredArgsConstructor
 public class OrderApiController {
     private final OrderRepository orderRepository;
-
+    private final OrderQueryRepository orderQueryRepository;
+    
     /**
      * V1. 엔티티 직접 노출
      * 엔티티가 변하면 API 스펙이 변한다.
@@ -61,6 +63,10 @@ public class OrderApiController {
                 .collect(toList());
     }
 
+    /**
+     * V3.1 엔티티를 DTO 변환, toOne관계는 Fetch Join으로 페이징처리
+     * toMandy관계는 hibernate.defaut_batch_fetch_size: 1000 설정으로 페이징처리
+     */
     @GetMapping("/api/v3.1/orders")
     public List<OrderDto> ordersV3_page(
             @RequestParam(value = "offset", defaultValue = "0") int offset,
@@ -72,6 +78,11 @@ public class OrderApiController {
         return result;
     }
 
+    /**
+     * V4 Query한 결과를 OrderQueryDto, OrderItemQueryDto 직접 저장
+     */
+    
+    
     @Data
     static class OrderDto {
         private Long orderId;   //주문번호
