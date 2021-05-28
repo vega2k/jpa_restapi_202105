@@ -2,6 +2,8 @@ package jpastudy.jpashop;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class LambdaTest {
 
     @Test
@@ -19,5 +21,9 @@ public class LambdaTest {
         Thread thread2 = new Thread(() -> System.out.println("람다"));
         thread2.start();
 
+        List<String> stringList = List.of("aa","bb","cc");
+        stringList.forEach(str -> System.out.println(str));
+        //Method Reference - 람다식을 좀 더 간단하게
+        stringList.forEach(System.out::println);
     }
 }
