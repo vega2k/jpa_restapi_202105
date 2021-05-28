@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,7 +43,7 @@ public class OrderApiController {
         List<Order> orders = orderRepository.findAllByString(new OrderSearch());
         return orders.stream() //Stream<Order>
                     .map(order -> new OrderDto(order)) //Stream<OrderDto>
-                    .collect(Collectors.toList());  //List<OrderDto>
+                    .collect(toList());  //List<OrderDto>
     }
 
     @Data
