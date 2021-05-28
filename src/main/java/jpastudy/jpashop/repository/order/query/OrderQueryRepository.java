@@ -80,7 +80,7 @@ public class OrderQueryRepository {
         Map<Long, List<OrderItemQueryDto>> orderItemMap =
                 findOrderItemMap(toOrderIds(result));
         //루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
-        result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
+        result.forEach(order -> order.setOrderItems(orderItemMap.get(order.getOrderId())));
         return result;
     }
 }
