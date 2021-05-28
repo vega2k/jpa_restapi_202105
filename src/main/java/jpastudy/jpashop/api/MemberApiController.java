@@ -61,11 +61,12 @@ public class MemberApiController {
         List<MemberDto> memberDtoList = findMembers.stream()  //Stream<Member>
                 .map(m -> new MemberDto(m.getName()))  //Stream<MemberDto>
                 .collect(toList());  //List<MemberDto>
-        return new Result(memberDtoList);
+        return new Result(memberDtoList.size(), memberDtoList);
     }
     @Data
     @AllArgsConstructor
     class Result<T> {
+        private int count;
         private T data;
     }
     @Data
