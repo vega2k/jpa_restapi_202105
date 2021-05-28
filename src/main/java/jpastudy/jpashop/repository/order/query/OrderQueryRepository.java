@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 @Repository
@@ -70,7 +70,17 @@ public class OrderQueryRepository {
                         " where oi.order.id in :orderIds", OrderItemQueryDto.class)
                 .setParameter("orderIds", orderIds)
                 .getResultList();
-        return orderItems.stream().collect(Collectors.groupingBy(OrderItemQueryDto::getOrderId));
+        return orderItems.stream().collect(groupingBy(orderItem -> orderItem.getOrderId()));
     }
 
+    public List<OrderQueryDto> findAllByDto_optimization() {
+        //toOne 코드를 모두 한번에 조회
+        List<OrderQueryDto> result = findOrders();
+        //orderItem 컬렉션을 MAP 한방에 조회
+        Map<Long, List<OrderItemQueryDto>> orderItemMap =
+                findOrderItemMap(toOrderIds(result));
+        //루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
+        result.forEach(o -> o.setOrderItems(orderItemMap.get(o.getOrderId())));
+        return result;
+    }
 }
