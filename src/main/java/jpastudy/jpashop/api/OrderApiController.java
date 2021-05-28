@@ -37,6 +37,7 @@ public class OrderApiController {
 
     /**
      * V2. 엔티티를 DTO로 변환해서 노출
+     * 여러번 쿼리가 수행 성능이슈는 있음
      */
     @GetMapping("api/v2/orders")
     public List<OrderDto> ordersV2() {
