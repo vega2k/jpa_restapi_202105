@@ -37,4 +37,14 @@ public class OrderQueryRepository {
                 .setParameter("orderId", orderId)
                 .getResultList();
     } //findOrderItems
+
+    public List<OrderQueryDto> findOrderQueryDtos() {
+        List<OrderQueryDto> orders = findOrders();
+        orders.forEach(order -> {
+            List<OrderItemQueryDto> orderItems = findOrderItems(order.getOrderId());
+            order.setOrderItems(orderItems);
+        });
+
+        return orders;
+    }
 }
