@@ -24,6 +24,17 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
+    //Order, Member, Delivery, OrderItem, Item 를 FetchJoin
+    public List<Order> findAllWithItems() {
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d " +
+                        "join fetch o.orderItems oi " +
+                        "join fetch oi.item i", Order.class)
+                .getResultList();
+    }
+
     //Order, Member, Delivery를 Fetch Join
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery(
