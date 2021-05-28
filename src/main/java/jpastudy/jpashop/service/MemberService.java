@@ -44,4 +44,15 @@ public class MemberService {
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
+
+    /**
+     * 회원 수정 (변경감지를 이용)  
+     * merge() 보다는 dirty checking을 이용해서 수정하는 것을 권장함
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
+
 }
