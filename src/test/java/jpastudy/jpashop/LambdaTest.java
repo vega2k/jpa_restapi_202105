@@ -3,7 +3,8 @@ package jpastudy.jpashop;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class LambdaTest {
     @Test
@@ -16,7 +17,7 @@ public class LambdaTest {
         List<String> strList = userList.stream()  //Stream<User>
                 .filter(user -> user.getAge() >= 20) //Stream<User>
                 .map(user -> user.getName()) //Stream<String>
-                .collect(Collectors.toList());//List<String>
+                .collect(toList());//List<String>
         //ctrl + alt + v, shift + alt + l (이클립스)
         strList.forEach(System.out::println);
 
