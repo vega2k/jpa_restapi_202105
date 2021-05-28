@@ -39,9 +39,12 @@ public class OrderQueryRepository {
     } //findOrderItems
 
     public List<OrderQueryDto> findOrderQueryDtos() {
+        //toOne관계인 Order,Member, Delivery를 조회
         List<OrderQueryDto> orders = findOrders();
         orders.forEach(order -> {
+            //toMany 관계인 OrderItems 조회
             List<OrderItemQueryDto> orderItems = findOrderItems(order.getOrderId());
+            //조회한 OrderItems를 Order에 저장
             order.setOrderItems(orderItems);
         });
 
