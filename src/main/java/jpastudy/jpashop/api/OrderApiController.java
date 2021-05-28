@@ -48,6 +48,18 @@ public class OrderApiController {
         return orders.stream().map(OrderDto::new).collect(toList());
     }
 
+    /**
+     * V3. 엔티티를 DTO로 변환하고, Fetch Join 으로 성능이슈 해결
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItems();
+        return orders.stream()
+                .map(order -> new OrderDto(order))
+                .collect(toList());
+    }
+
+
     @Data
     static class OrderDto {
         private Long orderId;   //주문번호
