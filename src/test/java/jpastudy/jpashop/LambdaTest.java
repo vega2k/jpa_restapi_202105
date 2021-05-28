@@ -19,6 +19,8 @@ public class LambdaTest {
                 .map(user -> user.getName()) //Stream<String>
                 .collect(toList());//List<String>
         //ctrl + alt + v, shift + alt + l (이클립스)
+        strList.forEach(str -> System.out.println(str));
+        //Method Reference
         strList.forEach(System.out::println);
 
     }
