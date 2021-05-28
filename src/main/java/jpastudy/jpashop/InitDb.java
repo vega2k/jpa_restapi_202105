@@ -65,7 +65,6 @@ public class InitDb {
             book.setStockQuantity(stockQuantity);
             return book;
         }
-
         private Delivery createDelivery(Member member) {
             Delivery delivery = new Delivery();
             delivery.setAddress(member.getAddress());
