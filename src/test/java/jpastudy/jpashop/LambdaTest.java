@@ -3,8 +3,40 @@ package jpastudy.jpashop;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LambdaTest {
+    @Test
+    public void stream() {
+        //List<User> ->  List<String> 이름만 추출해서 반환해라 age > 20
+        //List<User> ->Stream<User> -> Stream<String>-> List<String>
+        List<User> userList = List.of(new User("aa",10),
+                new User("bb",20),new User("cc",30));
+
+        List<String> strList = userList.stream()  //Stream<User>
+                .filter(user -> user.getAge() >= 20) //Stream<User>
+                .map(user -> user.getName()) //Stream<String>
+                .collect(Collectors.toList());//List<String>
+        //ctrl + alt + v, shift + alt + l (이클립스)
+        strList.forEach(System.out::println);
+
+    }
+
+    static class User {
+        String name;
+        int age;
+
+        public User(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+        public String getName() {
+            return name;
+        }
+        public int getAge() {
+            return age;
+        }
+    }
 
     @Test
     public void lambda() {
