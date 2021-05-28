@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,6 +34,17 @@ public class OrderApiController {
             orderItems.stream().forEach(orderItem -> orderItem.getItem().getName());
         }
         return all;
+    }
+
+    /**
+     * V2. 엔티티를 DTO로 변환해서 노출
+     */
+    @GetMapping("api/v2/orders")
+    public List<OrderDto> ordersV2() {
+        List<Order> orders = orderRepository.findAllByString(new OrderSearch());
+        return orders.stream() //Stream<Order>
+                    .map(order -> new OrderDto(order)) //Stream<OrderDto>
+                    .collect(Collectors.toList());  //List<OrderDto>
     }
 
     @Data
