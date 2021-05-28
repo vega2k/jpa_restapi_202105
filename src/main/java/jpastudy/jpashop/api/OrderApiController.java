@@ -86,7 +86,16 @@ public class OrderApiController {
     public List<OrderQueryDto> ordersV4() {
         return orderQueryRepository.findOrderQueryDtos();
     }
-    
+
+    /**
+     * V5 Query한 결과를 OrderQueryDto, OrderItemQueryDto 직접 저장
+     * Java Stream groupingby 기능 사용
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
     @Data
     static class OrderDto {
         private Long orderId;   //주문번호
