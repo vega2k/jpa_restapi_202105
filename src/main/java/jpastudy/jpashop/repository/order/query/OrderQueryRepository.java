@@ -23,4 +23,18 @@ public class OrderQueryRepository {
                         " join o.delivery d", OrderQueryDto.class)
                 .getResultList();
     } //findOrders
+
+    /**
+     * 1:N 관계인 orderItems 조회
+     */
+    private List<OrderItemQueryDto> findOrderItems(Long orderId) {
+        return em.createQuery(
+                "select new jpastudy.jpashop.repository.order.query.OrderItemQueryDto"+
+                        "(oi.order.id, i.name, oi.orderPrice, oi.count)" +
+                        " from OrderItem oi" +
+                        " join oi.item i" +
+                        " where oi.order.id = : orderId", OrderItemQueryDto.class)
+                .setParameter("orderId", orderId)
+                .getResultList();
+    } //findOrderItems
 }
