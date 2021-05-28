@@ -37,6 +37,17 @@ public class OrderRepository {
                 .getResultList();
     }
 
+    //Order, Member, Delivery를 Fetch Join 하면서 페이징 처리
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o " +
+                        "join fetch o.member m " +
+                        "join fetch o.delivery d", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
     //Order, Member, Delivery를 Fetch Join
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery(
