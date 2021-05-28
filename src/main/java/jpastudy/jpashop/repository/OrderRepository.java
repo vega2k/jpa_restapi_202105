@@ -27,7 +27,7 @@ public class OrderRepository {
     //Order, Member, Delivery, OrderItem, Item 를 FetchJoin
     public List<Order> findAllWithItems() {
         return em.createQuery(
-                "select o from Order o " +
+                "select distinct o from Order o " +
                         "join fetch o.member m " +
                         "join fetch o.delivery d " +
                         "join fetch o.orderItems oi " +
