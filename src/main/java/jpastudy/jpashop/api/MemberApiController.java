@@ -39,8 +39,10 @@ public class MemberApiController {
         Member findMember = memberService.findOne(id);
         return new UpdateMemberResponse(findMember.getId(), findMember.getName());
     }
+
     @Data
     static class UpdateMemberRequest {
+        @NotBlank
         private String name;
     }
     @Data
