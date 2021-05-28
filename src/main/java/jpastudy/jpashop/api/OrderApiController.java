@@ -2,6 +2,7 @@ package jpastudy.jpashop.api;
 
 import jpastudy.jpashop.domain.*;
 import jpastudy.jpashop.repository.OrderRepository;
+import jpastudy.jpashop.repository.order.query.OrderQueryDto;
 import jpastudy.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -81,7 +82,10 @@ public class OrderApiController {
     /**
      * V4 Query한 결과를 OrderQueryDto, OrderItemQueryDto 직접 저장
      */
-    
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
+    }
     
     @Data
     static class OrderDto {
