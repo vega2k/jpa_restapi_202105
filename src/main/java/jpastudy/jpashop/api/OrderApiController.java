@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,21 +37,22 @@ public class OrderApiController {
 
     @Data
     static class OrderDto {
-        private Long orderId;
-        private String name;
-        private LocalDateTime orderDate;
-        private OrderStatus orderStatus;
-        private Address address;
-        private List<OrderItemDto> orderItems;
+        private Long orderId;   //주문번호
+        private String name;    //회원이름
+        private LocalDateTime orderDate;    //주문날짜
+        private OrderStatus orderStatus;    //주문현황
+        private Address address;    //주소
+        private List<OrderItemDto> orderItems;  //주문Item
+
         public OrderDto(Order order) {
             orderId = order.getId();
             name = order.getMember().getName();
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
-            orderItems = order.getOrderItems().stream()
-                    .map(orderItem -> new OrderItemDto(orderItem))
-                    .collect(Collectors.toList());
+            orderItems = order.getOrderItems().stream() //Stream<OrderItem>
+                    .map(orderItem -> new OrderItemDto(orderItem)) //Stream<OrderItemDto>
+                    .collect(toList()); //List<OrderItemDto>
         }
     } //static class OrderDto
 
